@@ -1,0 +1,328 @@
+> library(compiler)
+> enableJIT(3)
+[1] 0
+> 
+> source("C:/NMW2015/Steps.R")
+> source("C:/NMW2015/Objs.R")
+> source("C:/NMW2015/MinUtil.R")
+> 
+> setwd("C:/NMW2015/03-Emax")
+> DataFile = "SimData.CSV"
+> DataAll = read.csv(DataFile)
+> 
+> nTheta = 2
+> nEta = 1
+> nEps = 1
+> 
+> THETAinit = c(10, 100)
+> OMinit = matrix(0.2, nrow=nEta, ncol=nEta)
+> SGinit = matrix(1, nrow=nEps, ncol=nEps)
+> 
+> LB = rep(0, nTheta)
+> UB = rep(1000000, nTheta)
+> 
+> #######
+> METHOD = "ZERO"
+> InitStep(DataAll, THETAinit=THETAinit, OMinit=OMinit, SGinit=SGinit, nTheta=nTheta, LB=LB, UB=UB, METHOD=METHOD, PredFile="PRED.R")
+Note: no visible binding for '<<-' assignment to 'IDs' 
+Note: no visible binding for '<<-' assignment to 'nID' 
+Note: no visible binding for global variable 'IDs' 
+Note: no visible binding for global variable 'nID' 
+Note: no visible binding for global variable 'nID' 
+Note: no visible binding for global variable 'IDs' 
+Note: no visible binding for global variable 'IDs' 
+Note: no visible binding for '<<-' assignment to 'nPara' 
+Note: no visible binding for global variable 'IDs' 
+Note: no visible binding for global variable 'nID' 
+Note: no visible binding for global variable 'nID' 
+Note: no visible binding for '<<-' assignment to 'alpha' 
+Note: no visible binding for '<<-' assignment to 'OMscl' 
+Note: no visible binding for '<<-' assignment to 'SGscl' 
+Note: no visible binding for '<<-' assignment to 'OMindex' 
+Note: no visible binding for '<<-' assignment to 'SGindex' 
+Note: no visible binding for global variable 'nPara' 
+Note: no visible binding for global variable 'nPara' 
+> (EstRes = EstStep())            # 0.6200359 secs, 0.4930282 secs
+Note: no visible binding for '<<-' assignment to 'STEP' 
+Note: no visible binding for '<<-' assignment to 'FinalPara' 
+Note: no visible binding for global variable 'FinalPara' 
+Note: no visible binding for '<<-' assignment to 'THETA' 
+Note: no visible binding for '<<-' assignment to 'OM' 
+Note: no visible binding for '<<-' assignment to 'SG' 
+Note: no visible binding for '<<-' assignment to 'ETAi' 
+Note: no visible binding for '<<-' assignment to 'nReci' 
+Note: no visible binding for '<<-' assignment to 'invOM' 
+Note: no visible binding for global variable 'OM' 
+Note: no visible binding for global variable 'OM' 
+Note: no visible binding for '<<-' assignment to 'DATAi' 
+Note: no visible binding for '<<-' assignment to 'nReci' 
+Note: no visible binding for '<<-' assignment to 'ETAi' 
+Note: no visible binding for global variable 'ETAi' 
+Note: no visible binding for '<<-' assignment to 'Term123' 
+$`Initial OFV`
+[1] 26252.44
+
+$Time
+Time difference of 0.3280191 secs
+
+$Optim
+$Optim$par
+[1] -1.0473046 -0.1350919 -1.6460344  1.1021171
+
+$Optim$value
+[1] 219.1571
+
+$Optim$counts
+function gradient 
+      48       48 
+
+$Optim$convergence
+[1] 0
+
+$Optim$message
+[1] "CONVERGENCE: REL_REDUCTION_OF_F <= FACTR*EPSMCH"
+
+$Optim$hessian
+            [,1]         [,2]      [,3]       [,4]
+[1,]  670.396022  2158.672828 -7.125732   7.005999
+[2,] 2158.672828 85287.490657 -7.337869  15.514073
+[3,]   -7.125732    -7.337869  4.152574   4.003837
+[4,]    7.005999    15.514073  4.003837 275.853565
+
+
+$`Original Parameter`
+[1]  3.174935448 79.051475928  0.006087568  7.420408658
+
+> (CovRes = CovStep())
+Note: no visible binding for '<<-' assignment to 'DATAi' 
+$`Standard Error`
+[1] 0.213801733 0.406840929 0.005397481 1.195969406
+
+$`Covariance Matrix of Estimates`
+              [,1]          [,2]          [,3]        [,4]
+[1,]  0.0457111810 -7.725206e-02 -2.859801e-04 0.076221780
+[2,] -0.0772520641  1.655195e-01 -4.761589e-05 0.003246552
+[3,] -0.0002859801 -4.761589e-05  2.913280e-05 0.001456104
+[4,]  0.0762217804  3.246552e-03  1.456104e-03 1.430342820
+
+$`Correlation Matrix of Estimates`
+           [,1]         [,2]        [,3]        [,4]
+[1,]  1.0000000 -0.888125284 -0.24781840 0.298090268
+[2,] -0.8881253  1.000000000 -0.02168384 0.006672332
+[3,] -0.2478184 -0.021683840  1.00000000 0.225569903
+[4,]  0.2980903  0.006672332  0.22556990 1.000000000
+
+$`Inverse Covariance Matrix of Estimates`
+           [,1]       [,2]        [,3]       [,4]
+[1,]  504810836  238323032  7076627746  -34645969
+[2,]  238323032  112513176  3340901709  -16356488
+[3,] 7076627746 3340901709 99202859749 -485680230
+[4,]  -34645969  -16356488  -485680230    2377809
+
+$`Eigen Values`
+[1] 2.083778e-08 8.266789e-01 1.224384e+00 1.948937e+00
+
+$`R Matrix`
+             [,1]         [,2]         [,3]         [,4]
+[1,]  33.25263680  4.300775132   -92.170589  0.074347017
+[2,]   4.30077513  6.825012137    -3.810611  0.006644991
+[3,] -92.17058933 -3.810610668 14024.940993 11.079387209
+[4,]   0.07434702  0.006644991    11.079387  0.626241871
+
+$`S Matrix`
+            [,1]       [,2]        [,3]       [,4]
+[1,]   33.915339 -7.3325890 -249.828475  1.5207484
+[2,]   -7.332589  4.0373142    7.982302  0.1841292
+[3,] -249.828475  7.9823018 7283.470819 22.8177046
+[4,]    1.520748  0.1841292   22.817705  0.5915625
+
+> 
+> PostHocEta() # FinalPara from EstStep()
+Note: no visible binding for '<<-' assignment to 'invOM' 
+     ID        ETA1
+[1,]  1 -0.08659144
+[2,]  2 -0.00657280
+[3,]  3  0.01992115
+[4,]  4  0.06780348
+> 
+> ########
+> METHOD = "COND"
+> (EstRes = EstStep())            # 4.89328 secs, 3.967227 secs
+$`Initial OFV`
+[1] 20012.59
+
+$Time
+Time difference of 3.039174 secs
+
+$Optim
+$Optim$par
+[1] -1.050022 -0.135063 -1.638025  1.101744
+
+$Optim$value
+[1] 219.1362
+
+$Optim$counts
+function gradient 
+      50       50 
+
+$Optim$convergence
+[1] 0
+
+$Optim$message
+[1] "CONVERGENCE: REL_REDUCTION_OF_F <= FACTR*EPSMCH"
+
+$Optim$hessian
+            [,1]         [,2]      [,3]       [,4]
+[1,]  660.268315  2125.523724 -1.819852   1.767950
+[2,] 2125.523724 85248.432477  5.298625   3.072201
+[3,]   -1.819852     5.298625  4.175063   4.050763
+[4,]    1.767950     3.072201  4.050763 275.725353
+
+
+$`Original Parameter`
+[1]  3.166319556 79.053758777  0.006185864  7.414876726
+
+> StartTime = Sys.time()
+> (CovRes = CovStep())
+$`Standard Error`
+[1] 0.216688530 0.406817160 0.005496061 1.198409240
+
+$`Covariance Matrix of Estimates`
+             [,1]          [,2]          [,3]        [,4]
+[1,]  0.046953919 -7.671301e-02 -3.895610e-04 0.074708678
+[2,] -0.076713012  1.655002e-01 -1.875919e-06 0.002681900
+[3,] -0.000389561 -1.875919e-06  3.020668e-05 0.001353871
+[4,]  0.074708678  2.681900e-03  1.353871e-03 1.436184706
+
+$`Correlation Matrix of Estimates`
+           [,1]          [,2]          [,3]        [,4]
+[1,]  1.0000000 -0.8702295978 -0.3271056021 0.287693455
+[2,] -0.8702296  1.0000000000 -0.0008390026 0.005500955
+[3,] -0.3271056 -0.0008390026  1.0000000000 0.205551493
+[4,]  0.2876935  0.0055009555  0.2055514934 1.000000000
+
+$`Inverse Covariance Matrix of Estimates`
+          [,1]      [,2]        [,3]        [,4]
+[1,]  42500657  19754483   678759321  -2887581.3
+[2,]  19754483   9181972   315490170  -1342159.9
+[3,] 678759321 315490170 10840201370 -46116324.2
+[4,]  -2887581  -1342160   -46116324    196188.9
+
+$`Eigen Values`
+[1] 2.424596e-07 8.403219e-01 1.205158e+00 1.954520e+00
+
+$`R Matrix`
+             [,1]        [,2]         [,3]         [,4]
+[1,]  32.91535063 4.246460192   -23.195773  0.019778362
+[2,]   4.24646019 6.821482560     2.713197  0.001252727
+[3,] -23.19577272 2.713196771 13638.530474 11.049695095
+[4,]   0.01977836 0.001252727    11.049695  0.627002932
+
+$`S Matrix`
+            [,1]       [,2]        [,3]       [,4]
+[1,]   33.118794 -7.2390585 -190.396132  1.4199302
+[2,]   -7.239059  4.0955648   -8.112245  0.1909017
+[3,] -190.396132 -8.1122448 6446.486237 25.1513370
+[4,]    1.419930  0.1909017   25.151337  0.5887607
+
+> difftime(Sys.time(), StartTime) # 0.904052 secs, 0.7790442 secs
+Time difference of 0.676039 secs
+> 
+> EBE
+     ID        ETA1
+[1,]  1 -0.08591749
+[2,]  2 -0.00525940
+[3,]  3  0.02140635
+[4,]  4  0.06966473
+> 
+> ########
+> METHOD = "LAPL"
+> (EstRes = EstStep())            # 5.609321 secs, 4.486256 secs
+$`Initial OFV`
+[1] 20011.59
+
+$Time
+Time difference of 3.471198 secs
+
+$Optim
+$Optim$par
+[1] -1.0501081 -0.1350325 -1.6319873  1.1015671
+
+$Optim$value
+[1] 219.1097
+
+$Optim$counts
+function gradient 
+      54       54 
+
+$Optim$convergence
+[1] 0
+
+$Optim$message
+[1] "CONVERGENCE: REL_REDUCTION_OF_F <= FACTR*EPSMCH"
+
+$Optim$hessian
+            [,1]         [,2]      [,3]        [,4]
+[1,]  656.378777 2.112814e+03 -1.800653   1.7552246
+[2,] 2112.813969 8.523780e+04  2.998742   0.5234161
+[3,]   -1.800653 2.998742e+00  4.228548   3.9973686
+[4,]    1.755225 5.234161e-01  3.997369 275.7780575
+
+
+$`Original Parameter`
+[1]  3.166047104 79.056170405  0.006261018  7.412250871
+
+> StartTime = Sys.time()
+> (CovRes = CovStep())
+$`Standard Error`
+[1] 0.216526137 0.406709765 0.005489965 1.195368905
+
+$`Covariance Matrix of Estimates`
+              [,1]          [,2]          [,3]        [,4]
+[1,]  0.0468835678 -0.0766693345 -3.653809e-04 0.073791949
+[2,] -0.0766693345  0.1654128326 -2.475890e-05 0.004109770
+[3,] -0.0003653809 -0.0000247589  3.013972e-05 0.001519918
+[4,]  0.0737919492  0.0041097701  1.519918e-03 1.428906818
+
+$`Correlation Matrix of Estimates`
+           [,1]         [,2]        [,3]        [,4]
+[1,]  1.0000000 -0.870616247 -0.30737318 0.285099661
+[2,] -0.8706162  1.000000000 -0.01108861 0.008453391
+[3,] -0.3073732 -0.011088612  1.00000000 0.231605347
+[4,]  0.2850997  0.008453391  0.23160535 1.000000000
+
+$`Inverse Covariance Matrix of Estimates`
+          [,1]        [,2]       [,3]         [,4]
+[1,]  18083310   8456553.5  290047918  -1266706.93
+[2,]   8456554   3954663.6  135639210   -592368.07
+[3,] 290047918 135639209.9 4652269412 -20317430.18
+[4,]  -1266707   -592368.1  -20317430     88731.53
+
+$`Eigen Values`
+[1] 5.653017e-07 8.246125e-01 1.231597e+00 1.943790e+00
+
+$`R Matrix`
+             [,1]         [,2]         [,3]         [,4]
+[1,]  32.74757932 4.2209330549   -22.704035 1.950678e-02
+[2,]   4.22093305 6.8202219108     1.518482 2.818839e-04
+[3,] -22.70403500 1.5184820657 13483.944147 1.077198e+01
+[4,]   0.01950678 0.0002818839    10.771984 6.267870e-01
+
+$`S Matrix`
+            [,1]        [,2]       [,3]       [,4]
+[1,]   32.687630  -7.2205466 -175.91335  1.4075976
+[2,]   -7.220547   4.1103372  -10.15055  0.1904356
+[3,] -175.913352 -10.1505524 6303.81873 25.9870176
+[4,]    1.407598   0.1904356   25.98702  0.5870538
+
+> difftime(Sys.time(), StartTime) # 0.9640551 secs, 0.749043 secs
+Time difference of 0.6490371 secs
+> 
+> EBE
+     ID        ETA1
+[1,]  1 -0.08643072
+[2,]  2 -0.00529474
+[3,]  3  0.02153110
+[4,]  4  0.07009755
+> 
+> 

@@ -1,0 +1,18 @@
+Package: nmw
+Version: 0.1.4
+Title: Understanding Nonlinear Mixed Effects Modeling for Population
+        Pharmacokinetics
+Description: This shows how NONMEM(R) <http://www.iconplc.com/innovation/nonmem/> software works. NONMEM's classical estimation methods like 'First Order(FO) approximation', 'First Order Conditional Estimation(FOCE)', and 'Laplacian approximation' are explained.
+Depends: R (>= 3.0.0), numDeriv
+ByteCompile: yes
+License: GPL-3
+Copyright: 2017-, Kyun-Seop Bae
+Author: Kyun-Seop Bae
+Maintainer: Kyun-Seop Bae <k@acr.kr>
+URL: https://cran.r-project.org/package=nmw
+NeedsCompilation: no
+Packaged: 2018-04-10 12:21:04 UTC; Kyun-SeopBae
+Repository: CRAN
+Date: 2018-04-10 00:01:04 KST
+Date/Publication: 2018-04-10 12:54:54 UTC
+Built: R 3.5.1; ; 2018-12-05 08:48:18 UTC; unix

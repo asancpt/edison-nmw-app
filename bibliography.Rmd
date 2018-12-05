@@ -1,0 +1,27 @@
+---
+title: "R Notebook"
+date: "`r Sys.Date()`"
+output: html_notebook
+---
+
+```{r setup}
+library(readr)
+library(knitcitations)
+library(knitr)
+```
+
+```{r main}
+cleanbib()
+options("citation_format" = "pandoc")
+citet("dx.doi.org/10.12793/tcp.2015.23.1.1")
+citet("dx.doi.org/10.12793/tcp.2016.24.4.161")
+citet(citation(package = "nmw"))
+write.bibtex(file = "bibliography.bib")
+capture.output(RefManageR::ReadBib("bibliography.bib"), file = file('bibliography.txt', encoding = 'UTF-8'))
+```
+
+`r paste(read_lines('bibliography.txt'), collapse = '\n')`
+
+```{bash}
+cat bibliography.txt
+```

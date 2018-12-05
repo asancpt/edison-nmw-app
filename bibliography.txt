@@ -1,0 +1,15 @@
+[1] K. Bae. _nmw: Understanding Nonlinear Mixed Effects Modeling
+for Population Pharmacokinetics_. R package version 0.1.4. 2018.
+<URL: https://CRAN.R-project.org/package=nmw>.
+
+[2] K. Bae and D. Yim. "R-based reproduction of the estimation
+process hidden behind NONMEM® Part 2: First-order conditional
+estimation". In: _Translational and Clinical Pharmacology_ 24.4
+(2016), p. 161. DOI: 10.12793/tcp.2016.24.4.161. <URL:
+https://doi.org/10.12793/tcp.2016.24.4.161>.
+
+[3] M. Kim, D. Yim and K. Bae. "R-based reproduction of the
+estimation process hidden behind NONMEM® Part 1: first-order
+approximation method". In: _Translational and Clinical
+Pharmacology_ 23.1 (2015), p. 1. DOI: 10.12793/tcp.2015.23.1.1.
+<URL: https://doi.org/10.12793/tcp.2015.23.1.1>.

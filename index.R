@@ -6,6 +6,7 @@ if (length(intersect(dir(), "result")) == 0) { system("mkdir result") }
 
 arguments <- commandArgs(trailingOnly = TRUE) 
 if (identical(arguments, character(0))) { arguments <- c("-inp", "data-raw/input.deck") }
+
 InputParameter <- arguments[2]
 
 library(knitr)
@@ -22,12 +23,12 @@ print(sessionInfo())
 
 # 2. main ----
 
-# nTheta x 2
-# nEta x 1
-# nEps x 1
-# THETAinit x~x 10 100
-# OMinit x 0.2
-# SGinit x 1
+# nTheta x 2           ; number of Theta
+# nEta x 1             ; number of Eta
+# nEps x 1             ; number of Epsilon
+# THETAinit x~x 10 100 ; Theta initial value
+# OMinit x 0.2         ; Omega initial value
+# SGinit x 1           ; Sigma initial value
 
 inputFirst <- read.table(InputParameter, row.names = 1, sep = "=", 
                          comment.char = ";", strip.white = TRUE, as.is = TRUE)

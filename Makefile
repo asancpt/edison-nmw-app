@@ -1,3 +1,8 @@
+run:
+	rm -rf results ;\
+	Rscript index.R
+
+
 github:
 	Rscript -e "rmarkdown::render('README.Rmd', output_format = 'github_document')"
 

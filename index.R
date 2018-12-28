@@ -4,22 +4,14 @@
 options(bitmapType='cairo')
 if (length(intersect(dir(), "result")) == 0) { system("mkdir result") }
 
-arguments <- commandArgs(trailingOnly = TRUE) 
-if (identical(arguments, character(0))) { arguments <- c("-inp", "data-raw/input.deck") }
-
-InputParameter <- arguments[2]
-
+if (Sys.info()['sysname'] == 'Linux') { .libPaths("./Rlib") } # for user-installed libs
 library(knitr)
 library(compiler)
 library(lattice)
-
-if (Sys.info()['sysname'] == 'Linux') { .libPaths("./Rlib") } # for user-installed libs
+library(dplyr)
+library(tidyr)
+library(readr)
 library(nmw)
-
-# current status
-print(sapply(.libPaths(), dir))
-print(capabilities())
-print(sessionInfo())
 
 # 2. main ----
 
@@ -30,17 +22,46 @@ print(sessionInfo())
 # OMinit x 0.2         ; Omega initial value
 # SGinit x 1           ; Sigma initial value
 
-inputFirst <- read.table(InputParameter, row.names = 1, sep = "=", 
-                         comment.char = ";", strip.white = TRUE, as.is = TRUE)
-write.csv(inputFirst, "result/inputFirst.csv", row.names = TRUE)
+input_deck <- 'Dataset = Theoph
+Method = ZERO
+nTheta = 3
+nEta = 3
+nEps = 2
+THETAinit = 2, 50, 0.1
+OMinit = 0.2, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.2
+SGinit = 0.1, 0, 0, 0.1'
+
+arguments <- commandArgs(trailingOnly = TRUE)
+if (length(arguments) == 0) { arguments <- c("-inp", input_deck, "-file", "NCAResult4BE.csv") }
+
+table_args <- matrix(arguments, ncol = 2, byrow = TRUE) %>%
+  as_tibble() %>%
+  mutate(V1 = sub('-', '', V1)) %>%
+  spread(V1, V2) %>%
+  print()
+
+inputFirst <- read_delim(table_args$inp, 
+                         delim = '=', 
+                         col_names = c('name', 'value')) %>%
+  mutate_all(funs(trimws)) %>% 
+  print()
+
+write_csv(inputFirst, "result/inputFirst.csv")
 
 # 3. report ----
 
 knitr::knit2html("README.Rmd", 
                  "result/README.html", 
-                 options = c("toc", "mathjax"), force_v1 = TRUE)
+                 options = c("toc", "mathjax"), 
+                 force_v1 = TRUE, encoding = 'UTF-8')
 
-system("cp cover.jpg xyplot.jpg result")
+system("cp -rf cover.jpg figure xyplot.jpg result")
 
 print("Complete.")
+
+# current status
+
+print(sapply(.libPaths(), dir))
+print(capabilities())
+print(sessionInfo())
 

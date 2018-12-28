@@ -25,3 +25,4 @@ capture.output(RefManageR::ReadBib("bibliography.bib"), file = file('bibliograph
 ```{bash}
 cat bibliography.txt
 ```
+

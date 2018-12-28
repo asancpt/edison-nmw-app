@@ -20,7 +20,8 @@ library(lattice)
 
 inputFirst <- read_csv("result/inputFirst.csv", 
                        col_names = c('name', 'value'), 
-                       skip = 1)
+                       skip = 1) %>% 
+  print()
 
 input <- inputFirst %>% 
   spread(name, value)
@@ -53,7 +54,7 @@ license: GPL-3
 
 ## Introduction
 
-NONMEM Workshop 2017에서 사용된 nmw 패키지를 사용한 Edison 사이언스 앱입니다.
+NONMEM Workshop 2017, 2018에서 사용된 nmw 패키지를 사용한 Edison 사이언스 앱입니다.
 
 ## Result
 
@@ -89,8 +90,7 @@ kable(head(DataAll, n = 20), caption = "input data", format = "markdown")
 
 ### Figure
 
-```{r include = FALSE}
-jpeg("xyplot.jpg", type = 'cairo')
+```{r figure, include = TRUE}
 if (NMDataset == "Emax") xyplot(DV ~ log(CE) | ID, data=DataAll, type="b")
 if (NMDataset == "Theoph") {
   xyplot(DV~TIME|ID, 
@@ -98,10 +98,7 @@ if (NMDataset == "Theoph") {
          type="b",
          index.cond=list(order(as.numeric(levels(unique(DataAll$ID))))))
 }
-dev.off()
 ```
-
-![Concentration-time curve of `r NMDataset`](xyplot.jpg)
 
 ### Method Calculation
 
@@ -152,15 +149,15 @@ InitPara <- nmw::InitStep(DataAll,
 ```
 PRED = function(THETA, ETAi, DATAi)
 {
-  CE   = DATAi[,"CE"]
-  CE50 = as.numeric(THETA[1] * exp(ETAi[1]))
-  BASE = as.numeric(THETA[2])
-  F    = BASE * (1 - CE/(CE50 + CE))
-  G1   = BASE * CE * CE50 / (CE50 + CE)^2
-  H1   = rep(1, nrow(DATAi))
-  D11  = (-2*CE50/(CE + CE50) + 1) * G1
+CE   = DATAi[,"CE"]
+CE50 = as.numeric(THETA[1] * exp(ETAi[1]))
+BASE = as.numeric(THETA[2])
+F    = BASE * (1 - CE/(CE50 + CE))
+G1   = BASE * CE * CE50 / (CE50 + CE)^2
+H1   = rep(1, nrow(DATAi))
+D11  = (-2*CE50/(CE + CE50) + 1) * G1
 
-  return(cbind(F, G1, H1, D11))
+return(cbind(F, G1, H1, D11))
 }
 
 nTheta = 2
@@ -194,3 +191,4 @@ The other values are the same with those of `Theoph (ZERO, CONC)`.
 ## References
 
 `r paste(read_lines('bibliography.txt'), collapse = "\n")`
+

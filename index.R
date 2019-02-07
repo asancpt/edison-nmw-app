@@ -12,6 +12,7 @@ library(dplyr)
 library(tidyr)
 library(readr)
 library(nmw)
+library(optparse)
 
 # 2. main ----
 
@@ -31,16 +32,14 @@ THETAinit = 2, 50, 0.1
 OMinit = 0.2, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.2
 SGinit = 0.1, 0, 0, 0.1'
 
-arguments <- commandArgs(trailingOnly = TRUE)
-if (length(arguments) == 0) { arguments <- c("-inp", input_deck, "-file", "NCAResult4BE.csv") }
+option_list <- list (
+  make_option(c("-inp", "--input"), type='character', help="Input file path", default=input_deck, metavar="character")
+)
 
-table_args <- matrix(arguments, ncol = 2, byrow = TRUE) %>%
-  as_tibble() %>%
-  mutate(V1 = sub('-', '', V1)) %>%
-  spread(V1, V2) %>%
-  print()
+arguments <- parse_args(OptionParser(option_list=option_list), args = commandArgs(trailing=TRUE))
 
-inputFirst <- read_delim(table_args$inp, 
+
+inputFirst <- read_delim(arguments$input, 
                          delim = '=', 
                          col_names = c('name', 'value')) %>%
   mutate_all(funs(trimws)) %>% 

@@ -1,0 +1,8 @@
+Dataset = Theoph
+Method = ZERO
+nTheta = 3
+nEta = 3
+nEps = 2
+THETAinit = 2, 50, 0.1
+OMinit = 0.2, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.2
+SGinit = 0.1, 0, 0, 0.1

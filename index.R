@@ -23,21 +23,17 @@ library(optparse)
 # OMinit x 0.2         ; Omega initial value
 # SGinit x 1           ; Sigma initial value
 
-input_deck <- 'Dataset = Theoph
-Method = ZERO
-nTheta = 3
-nEta = 3
-nEps = 2
-THETAinit = 2, 50, 0.1
-OMinit = 0.2, 0.1, 0.1, 0.1, 0.2, 0.1, 0.1, 0.1, 0.2
-SGinit = 0.1, 0, 0, 0.1'
-
-option_list <- list (
-  make_option(c("-inp", "--input"), type='character', help="Input file path", default=input_deck, metavar="character")
+option_list <- list(
+  optparse::make_option(c("-i", "--input"), 
+                        type='character', 
+                        help="Input file path", 
+                        default="input/ZERO.inp", 
+                        metavar="character")
 )
 
-arguments <- parse_args(OptionParser(option_list=option_list), args = commandArgs(trailing=TRUE))
-
+arguments <- optparse::parse_args(optparse::OptionParser(option_list=option_list), 
+                                  args = commandArgs(trailing=TRUE)) %>% 
+  print()
 
 inputFirst <- read_delim(arguments$input, 
                          delim = '=', 
@@ -63,4 +59,3 @@ print("Complete.")
 print(sapply(.libPaths(), dir))
 print(capabilities())
 print(sessionInfo())
-

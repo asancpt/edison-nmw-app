@@ -13,6 +13,8 @@ option_list <- list(
 # in R console
 parse_args(OptionParser(option_list=option_list), args = c("--verbose", "--count=11"))
 
+cat("=====================================================\n\n")
+
 # via Rscript file
 parse_args(OptionParser(option_list=option_list), args = commandArgs(trailing=TRUE))
 
